@@ -1,0 +1,2 @@
+Table:`review`, Attribute: valid, Default='1'; //true
+Table:`rates_restaurant` Action: added

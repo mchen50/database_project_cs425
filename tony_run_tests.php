@@ -1,0 +1,30 @@
+<?php
+	include("tony_test_cases.php");
+	
+	test_add_restaurant();
+	test_add_member();
+	test_remove_member();
+	test_create_activity_rule();
+	test_update_activity_rule();
+	test_delete_activity_rule();
+	test_create_activity();
+	test_add_activity();
+	test_remove_activity();
+	test_delete_activity();
+	test_delete_all_activity();
+	test_create_review();	
+	test_add_review();
+	test_remove_review();
+	test_rate_review();
+	test_update_rate_review();
+	test_remove_rate_review();
+	test_delete_review();
+	test_delete_all_reviews();
+	test_rate_restaurant();
+	test_update_rate_restaurant();
+	test_delete_rate_restaurant();
+	test_delete_restaurant();
+	test_change_rank_rule();
+	test_add_group_role();
+
+?>

@@ -1,0 +1,646 @@
+-- phpMyAdmin SQL Dump
+-- version 4.1.8
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: May 05, 2015 at 04:57 PM
+-- Server version: 5.5.41-cll-lve
+-- PHP Version: 5.4.23
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `keycxdzj_project425`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `activity`
+--
+
+CREATE TABLE IF NOT EXISTS `activity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(45) NOT NULL,
+  `date_time` datetime NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`,`date_time`),
+  UNIQUE KEY `activity_id_UNIQUE` (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `activity_rule`
+--
+
+CREATE TABLE IF NOT EXISTS `activity_rule` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(45) NOT NULL,
+  `points` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `type_UNIQUE` (`type`),
+  UNIQUE KEY `points_UNIQUE` (`points`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bank`
+--
+
+CREATE TABLE IF NOT EXISTS `bank` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `routing_number` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `buy_best`
+--
+
+CREATE TABLE IF NOT EXISTS `buy_best` (
+  `laptop_id` int(11) NOT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `brand` varchar(45) DEFAULT NULL,
+  `model` varchar(45) DEFAULT NULL,
+  `overal_rating` varchar(45) DEFAULT NULL,
+  `pic_path` varchar(120) DEFAULT NULL,
+  PRIMARY KEY (`laptop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `b_account`
+--
+
+CREATE TABLE IF NOT EXISTS `b_account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `number` int(11) DEFAULT NULL,
+  `balance` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `number_UNIQUE` (`number`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `card`
+--
+
+CREATE TABLE IF NOT EXISTS `card` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `number` int(11) NOT NULL,
+  `company` varchar(45) DEFAULT NULL,
+  `expiration_date` datetime NOT NULL,
+  `billing address` varchar(120) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `number_UNIQUE` (`number`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comment`
+--
+
+CREATE TABLE IF NOT EXISTS `comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` varchar(120) NOT NULL,
+  `rate_num` int(11) DEFAULT NULL,
+  `date_time` datetime NOT NULL,
+  `valid` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comment_type`
+--
+
+CREATE TABLE IF NOT EXISTS `comment_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `type_UNIQUE` (`type`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `e_account`
+--
+
+CREATE TABLE IF NOT EXISTS `e_account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `points` int(11) NOT NULL,
+  `balance` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `group`
+--
+
+CREATE TABLE IF NOT EXISTS `group` (
+  `group_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`group_id`),
+  UNIQUE KEY `group_id_UNIQUE` (`group_id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_activity`
+--
+
+CREATE TABLE IF NOT EXISTS `has_activity` (
+  `user_id` int(11) NOT NULL,
+  `activity_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`activity_id`),
+  KEY `fk_has_activity_2_idx` (`activity_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_activity_rule`
+--
+
+CREATE TABLE IF NOT EXISTS `has_activity_rule` (
+  `activity_rule_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`activity_rule_id`,`group_id`),
+  KEY `fk_has_activity_rule_2_idx` (`group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_bank`
+--
+
+CREATE TABLE IF NOT EXISTS `has_bank` (
+  `b_account_id` int(11) NOT NULL,
+  `bank_id` int(11) NOT NULL,
+  PRIMARY KEY (`b_account_id`,`bank_id`),
+  KEY `fk_has_bank_2_idx` (`bank_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_b_account`
+--
+
+CREATE TABLE IF NOT EXISTS `has_b_account` (
+  `user_id` int(11) NOT NULL,
+  `b_account_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`b_account_id`),
+  KEY `fk_has_b_account_2_idx` (`b_account_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_b_transfer`
+--
+
+CREATE TABLE IF NOT EXISTS `has_b_transfer` (
+  `bank_account_id` int(11) NOT NULL,
+  `transfer_id` int(11) NOT NULL,
+  PRIMARY KEY (`bank_account_id`,`transfer_id`),
+  KEY `fk_has_b_transfer_2_idx` (`transfer_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_card`
+--
+
+CREATE TABLE IF NOT EXISTS `has_card` (
+  `user_id` int(11) NOT NULL,
+  `card_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`card_id`),
+  KEY `fk_has_card_2_idx` (`card_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_comment`
+--
+
+CREATE TABLE IF NOT EXISTS `has_comment` (
+  `group_id` int(11) NOT NULL,
+  `laptop_id` int(11) NOT NULL,
+  `comment_id` int(11) NOT NULL,
+  PRIMARY KEY (`group_id`,`laptop_id`,`comment_id`),
+  KEY `fk_has_comment_2_idx` (`laptop_id`),
+  KEY `fk_has_comment_3_idx` (`comment_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_c_transfer`
+--
+
+CREATE TABLE IF NOT EXISTS `has_c_transfer` (
+  `card_id` int(11) NOT NULL,
+  `transfer_id` int(11) NOT NULL,
+  PRIMARY KEY (`card_id`,`transfer_id`),
+  KEY `fk_has_c_transfer_2_idx` (`transfer_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_c_type`
+--
+
+CREATE TABLE IF NOT EXISTS `has_c_type` (
+  `comment_id` int(11) NOT NULL,
+  `c_type_id` int(11) NOT NULL,
+  PRIMARY KEY (`comment_id`,`c_type_id`),
+  KEY `fk_has_c_type_2_idx` (`c_type_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_email`
+--
+
+CREATE TABLE IF NOT EXISTS `has_email` (
+  `user_id` int(11) NOT NULL,
+  `is_verified_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`is_verified_id`),
+  KEY `fk_has_email_2_idx` (`is_verified_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_e_account`
+--
+
+CREATE TABLE IF NOT EXISTS `has_e_account` (
+  `user_id` int(11) NOT NULL,
+  `e_account_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`e_account_id`),
+  KEY `fk_has_e_account_2_idx` (`e_account_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_member`
+--
+
+CREATE TABLE IF NOT EXISTS `has_member` (
+  `group_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`group_id`,`user_id`),
+  KEY `fk_has_member_2_idx` (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_rank`
+--
+
+CREATE TABLE IF NOT EXISTS `has_rank` (
+  `user_id` int(11) NOT NULL,
+  `rank_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`rank_id`),
+  KEY `fk_has_rank_2_idx` (`rank_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_rank_rule`
+--
+
+CREATE TABLE IF NOT EXISTS `has_rank_rule` (
+  `rank_rule_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`rank_rule_id`,`group_id`),
+  KEY `fk_has_rank_rule_2_idx` (`group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_review`
+--
+
+CREATE TABLE IF NOT EXISTS `has_review` (
+  `group_id` int(11) NOT NULL,
+  `res_id` int(11) NOT NULL,
+  `review_id` int(11) NOT NULL,
+  PRIMARY KEY (`group_id`,`res_id`,`review_id`),
+  KEY `fk_has_review_2_idx` (`res_id`),
+  KEY `fk_has_review_3_idx` (`review_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_role`
+--
+
+CREATE TABLE IF NOT EXISTS `has_role` (
+  `user_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`role_id`),
+  KEY `fk_has_role_2_idx` (`role_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `has_transaction`
+--
+
+CREATE TABLE IF NOT EXISTS `has_transaction` (
+  `e_account_id` int(11) NOT NULL,
+  `transaction_id` int(11) NOT NULL,
+  PRIMARY KEY (`transaction_id`,`e_account_id`),
+  KEY `fk_has_transaction_1_idx` (`e_account_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `is_verified`
+--
+
+CREATE TABLE IF NOT EXISTS `is_verified` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email_address` varchar(60) NOT NULL,
+  `verified` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email_address_UNIQUE` (`email_address`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `make_comment`
+--
+
+CREATE TABLE IF NOT EXISTS `make_comment` (
+  `user_id` int(11) NOT NULL,
+  `comment_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`comment_id`),
+  KEY `fk_make_comment_1_idx` (`comment_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `make_c_subcomment`
+--
+
+CREATE TABLE IF NOT EXISTS `make_c_subcomment` (
+  `user_id` int(11) NOT NULL,
+  `comment_id` int(11) NOT NULL,
+  `content` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`user_id`,`comment_id`),
+  KEY `fk_make_c_subcomment_2_idx` (`comment_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `make_c_thumb`
+--
+
+CREATE TABLE IF NOT EXISTS `make_c_thumb` (
+  `user_id` int(11) NOT NULL,
+  `comment_id` int(11) NOT NULL,
+  `up_down` int(11) DEFAULT NULL,
+  PRIMARY KEY (`user_id`,`comment_id`),
+  KEY `fk_make_c_thumb_2_idx` (`comment_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `make_review`
+--
+
+CREATE TABLE IF NOT EXISTS `make_review` (
+  `user_id` int(11) NOT NULL,
+  `review_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`review_id`),
+  KEY `fk_make_review_2_idx` (`review_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `make_r_subcomment`
+--
+
+CREATE TABLE IF NOT EXISTS `make_r_subcomment` (
+  `user_id` int(11) NOT NULL,
+  `review_id` int(11) NOT NULL,
+  `content` varchar(120) DEFAULT NULL,
+  PRIMARY KEY (`user_id`,`review_id`),
+  KEY `fk_make_r_subcomment_2_idx` (`review_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `make_r_thumb`
+--
+
+CREATE TABLE IF NOT EXISTS `make_r_thumb` (
+  `user_id` int(11) NOT NULL,
+  `review_id` int(11) NOT NULL,
+  `up_down` int(11) DEFAULT NULL,
+  PRIMARY KEY (`user_id`,`review_id`),
+  KEY `fk_make_r_thumb_2_idx` (`review_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rank`
+--
+
+CREATE TABLE IF NOT EXISTS `rank` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`,`group_id`),
+  UNIQUE KEY `rank_id_UNIQUE` (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rank_rule`
+--
+
+CREATE TABLE IF NOT EXISTS `rank_rule` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `max` int(11) NOT NULL,
+  `min` int(11) NOT NULL,
+  `rank_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `report_comment`
+--
+
+CREATE TABLE IF NOT EXISTS `report_comment` (
+  `user_id` int(11) NOT NULL,
+  `comment_id` int(11) NOT NULL,
+  `content` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`user_id`,`comment_id`),
+  KEY `fk_report_comment_2_idx` (`comment_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `report_review`
+--
+
+CREATE TABLE IF NOT EXISTS `report_review` (
+  `user_id` int(11) NOT NULL,
+  `review_id` int(11) NOT NULL,
+  `content` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`user_id`,`review_id`),
+  KEY `fk_report_review_2_idx` (`review_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review`
+--
+
+CREATE TABLE IF NOT EXISTS `review` (
+  `id` int(11) NOT NULL,
+  `content` varchar(120) DEFAULT NULL,
+  `valid` int(11) DEFAULT NULL,
+  `rate_num` int(11) DEFAULT NULL,
+  `date_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role`
+--
+
+CREATE TABLE IF NOT EXISTS `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`,`group_id`),
+  UNIQUE KEY `role_id_UNIQUE` (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaction`
+--
+
+CREATE TABLE IF NOT EXISTS `transaction` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `laptop_id` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `seller_id` int(11) NOT NULL,
+  `purchaser_id` int(11) NOT NULL,
+  `date_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transfer`
+--
+
+CREATE TABLE IF NOT EXISTS `transfer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `amount` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `date_joined` date NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id_UNIQUE` (`id`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `yellp`
+--
+
+CREATE TABLE IF NOT EXISTS `yellp` (
+  `group_id` int(11) NOT NULL,
+  `restaurant_id` int(11) NOT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `state` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `overall_rating` varchar(45) DEFAULT NULL,
+  `pic_path` varchar(120) DEFAULT NULL,
+  PRIMARY KEY (`group_id`,`restaurant_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

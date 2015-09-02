@@ -1,0 +1,54 @@
+<?php
+	include("queries.php");
+
+	function test_add_restaurant(){
+		if(addRestaurant("Bobbys","123 Main Street","Chicago","IL")) echo 'Add Restaurant: <font color="green">Passed</font><br>';
+		else echo "Add Restaurant: Failed<br>";
+	}
+	
+	function test_delete_restaurant(){
+		if(deleteRestaurant(1,1)) echo 'Delete Restaurant: <font color="green">Passed</font><br>';
+		else echo "Delete Restaurant: Failed<br>";
+	}
+	
+	function test_create_review(){
+		if(createReview(1,"This is a great restaurant! My boyfriend and I loved it!")) echo 'Create Review: <font color="green">Passed</font><br>';
+		else echo "Create Review: Failed<br>";
+	}
+
+	function test_add_review(){
+		if(addReview(1,1)) echo 'Add Review: <font color="green">Passed</font><br>';
+		else echo "Add Review: Failed<br>";
+	}
+	
+	function test_rate_review(){
+		if(rateReview()) echo 'Rate Review: <font color="green">Passed</font><br>';
+		else echo "Rate Review: Failed<br>";
+	}
+
+	function test_rate_restaurant(){
+		if(rateRestaurant(5)) echo 'Rate Restaurant: <font color="green">Passed</font><br>';
+		else echo "Rate Restaurant: Failed<br>";
+	}
+		
+	function test_add_activity(){
+		if(addActivity()) echo 'Add Activity: <font color="green">Passed</font><br>';
+		else echo "Add Activity: Failed<br>";
+	}
+
+	function test_change_activity_rule(){
+		if(changeActivityRule()) echo 'Change Activity Rule: <font color="green">Passed</font><br>';
+		else echo "Change Activity Rule: Failed<br>";
+	}
+	
+	function test_change_rank_rule(){
+		if(changeRankRule()) echo 'Change Rank Rule: <font color="green">Passed</font><br>';
+		else echo "Change Rank Rule: Failed<br>";
+	}
+
+	function test_add_group_role(){
+		if(addGroupRole()) echo 'Add Group Role: <font color="green">Passed</font><br>';
+		else echo "Add Group Role: Failed<br>";
+	}
+	
+?>
